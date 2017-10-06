@@ -17,7 +17,7 @@ import javax.persistence.Version
 data class Comment(
 	@Id()
 	@Column(length = 36)
-	var id : String,
+	var id : String = "",
 
 	@Version
 	var version : Int? = null,

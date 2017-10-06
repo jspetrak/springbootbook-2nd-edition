@@ -1,19 +1,19 @@
 package de.codeboje.springbootbook.commentstore.service
 
 import de.codeboje.springbootbook.model.Comment
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.junit.jupiter.SpringExtension
+import org.springframework.test.context.junit4.SpringRunner
 
 @SpringBootTest()
-@ExtendWith(SpringExtension::class)
+@RunWith(SpringRunner::class)
 open class CommentstoreServiceImplTest {
 
 	@Autowired()
@@ -24,7 +24,7 @@ open class CommentstoreServiceImplTest {
 
 	private lateinit var comment : Comment
 
-	@BeforeEach()
+	@Before()
 	fun setup() {
 		comment = Comment(
 			username = "testuser",
@@ -67,7 +67,7 @@ open class CommentstoreServiceImplTest {
 		val r = commentService.list(comment.pageId!!)
 		assertNotNull(r)
 		assertEquals(1, r.size)
-		assertEquals(comment.id, r.get(0).id)
+		assertEquals(comment.id, r[0].id)
 	}
 
 	@Test()
@@ -77,7 +77,7 @@ open class CommentstoreServiceImplTest {
 		val r = commentService.listSpamComments(comment.pageId!!)
 		assertNotNull(r)
 		assertEquals(1, r.size)
-		assertEquals(comment.id, r.get(0).id)
+		assertEquals(comment.id, r[0].id)
 	}
 
 }

@@ -12,14 +12,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import de.codeboje.springbootbook.commentstore.service.CommentService
 import de.codeboje.springbootbook.model.Comment
 import de.codeboje.springbootbook.spamdetection.SpamDetector
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
+import org.junit.Test
+import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.actuate.metrics.CounterService
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.test.context.junit.jupiter.SpringExtension
+import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
 import java.time.Instant
 import java.time.format.DateTimeFormatter
@@ -28,7 +28,7 @@ import java.util.ArrayList
 /**
  * Test for the {@link ReadController} using a mock test approach.
  */
-@ExtendWith(SpringExtension::class)
+@RunWith(SpringRunner::class)
 @WebMvcTest(ReadController::class)
 @AutoConfigureMockMvc()
 @MockBean(SpamDetector::class, CounterService::class)

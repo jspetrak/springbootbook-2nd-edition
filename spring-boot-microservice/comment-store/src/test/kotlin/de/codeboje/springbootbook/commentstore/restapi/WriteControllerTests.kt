@@ -4,32 +4,32 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
 import de.codeboje.springbootbook.commentstore.service.CommentService
 import de.codeboje.springbootbook.model.Comment
-import de.codeboje.springbootbook.spamdetection.SpamDetector
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.actuate.metrics.CounterService
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment
 import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.test.context.junit.jupiter.SpringExtension
+import org.springframework.security.test.context.support.WithMockUser
+import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 
 /**
  * Test for the {@link ReadController} using a mock test approach.
  */
-@ExtendWith(SpringExtension::class)
-@WebMvcTest(ReadController::class)
+@RunWith(SpringRunner::class)
+@SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc()
-@MockBean(SpamDetector::class, CounterService::class)
+@WithMockUser(username="admin")
 open class WriteControllerTests {
 
-	@MockBean()
+	@Autowired()
 	private lateinit var commentService : CommentService
 
 	@Autowired()
@@ -44,7 +44,7 @@ open class WriteControllerTests {
 			.param("pageId", model.pageId!!)
 			.param("emailAddress", model.emailAddress!!)
 			.param("username", model.username!!))
-			.andExpect(status().`is`(200)).andReturn()
+			.andExpect(status().is2xxSuccessful).andReturn()
 
 		val id = result.response.contentAsString
 		val dbModel = commentService.get(id)
@@ -65,7 +65,7 @@ open class WriteControllerTests {
 
 		val id = commentService.put(model)
 
-		this.mvc.perform(delete("/" + id)).andExpect(status().isOk)
+		this.mvc.perform(delete("/" + id)).andExpect(status().is2xxSuccessful)
 
 		assertNull(commentService.get(model.id))
 	}

@@ -17,7 +17,6 @@
 
 	<properties>
 		<jackson.version>2.9.1</jackson.version>
-		<junit.jupiter.version>5.0.1</junit.jupiter.version>
 		<kotlin.version>1.1.51</kotlin.version>
 	</properties>
 
@@ -89,12 +88,6 @@
 		<dependency>
 			<groupId>com.jayway.jsonpath</groupId>
 			<artifactId>json-path-assert</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>${junit.jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
