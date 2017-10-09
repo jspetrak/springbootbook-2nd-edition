@@ -10,5 +10,6 @@ spam-detection/.springBeans
 *.iml
 
 **/.idea/*
+**/.gradle/*
 
 .vscode/*

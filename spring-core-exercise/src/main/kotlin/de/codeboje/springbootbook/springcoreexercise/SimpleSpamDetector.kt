@@ -1,15 +1,16 @@
 package de.codeboje.springbootbook.springcoreexercise
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.io.File
 import java.nio.file.Files
 
 @Service()
-class SimpleSpamDetector : SpamDetector {
+open class SimpleSpamDetector : SpamDetector {
 
 	private val spamWords : MutableList<String>
 
-	constructor(filename : String) {
+	constructor(@Value("\${spamWordsFilename}") filename : String) {
 		this.spamWords = Files.readAllLines(File(filename).toPath())
 	}
 
